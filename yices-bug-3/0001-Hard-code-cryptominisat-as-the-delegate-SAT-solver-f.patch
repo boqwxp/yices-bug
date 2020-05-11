@@ -1,0 +1,26 @@
+From 5e9d02c45567f4d5de915c81c488c476db9fef5f Mon Sep 17 00:00:00 2001
+From: Alberto Gonzalez <boqwxp@airmail.cc>
+Date: Mon, 11 May 2020 03:47:00 +0000
+Subject: [PATCH] Hard-code cryptominisat as the delegate SAT solver for
+ exists-forall solving.
+
+---
+ src/exists_forall/efsolver.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/exists_forall/efsolver.c b/src/exists_forall/efsolver.c
+index 66dc00e1..c05814ae 100644
+--- a/src/exists_forall/efsolver.c
++++ b/src/exists_forall/efsolver.c
+@@ -394,7 +394,7 @@ static smt_status_t satisfy_context(context_t *ctx, const param_t *parameters, t
+ 
+   assert(context_status(ctx) == STATUS_IDLE);
+ 
+-  stat = check_context(ctx, parameters);
++  stat = check_with_delegate(ctx, "cryptominisat", 9);
+   switch (stat) {
+   case STATUS_SAT:
+   case STATUS_UNKNOWN:
+-- 
+2.20.1
+
